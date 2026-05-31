@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm --filter @tma/server dev)",
+      "Bash(echo \"spawned PID=$!\")",
+      "Bash(curl -fsS http://localhost:8080/api/health)",
+      "Bash(curl -s http://localhost:8080/api/health)",
+      "Bash(curl -s http://localhost:8080/api/snapshot)",
+      "Bash(node -e 'const d=JSON.parse\\(require\\(\"fs\"\\).readFileSync\\(0,\"utf8\"\\)\\); console.log\\(\"sectors:\",d.sectors.length,\"quotes:\",Object.keys\\(d.quotes\\).length\\); console.log\\(\"top sector:\",d.sectors[0]\\); console.log\\(\"sample quote:\",Object.values\\(d.quotes\\)[0]\\);')",
+      "Bash(pnpm --filter @tma/web dev > /tmp/tma-web.log 2>&1 & *)",
+      "Bash(curl -fsS http://localhost:5173)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(curl -s http://localhost:5173/api/snapshot)",
+      "Bash(node -e 'const d=JSON.parse\\(require\\(\"fs\"\\).readFileSync\\(0,\"utf8\"\\)\\); console.log\\(\"proxied sectors:\",d.sectors.length\\);')",
+      "Bash(node -e ' *)",
+      "Bash(command -v chromium)",
+      "Bash(command -v google-chrome)",
+      "Read(//Applications/Google Chrome.app/**)",
+      "Read(//Applications/**)",
+      "Read(//System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/**)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --hide-scrollbars --window-size=1200,1400 --screenshot=/tmp/tma-ui.png http://localhost:5173)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --hide-scrollbars --window-size=1200,1500 --virtual-time-budget=4000 --screenshot=/tmp/tma-ui.png http://localhost:5173)",
+      "Bash(pkill -f \"tsx watch src/index.ts\")",
+      "Bash(pkill -f \"node.*vite\")"
+    ],
+    "additionalDirectories": [
+      "/tmp"
+    ]
+  }
+}

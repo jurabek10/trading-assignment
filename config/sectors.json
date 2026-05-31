@@ -1,0 +1,100 @@
+{
+  "sectors": [
+    {
+      "id": "quantum",
+      "nameKo": "양자컴퓨터",
+      "nameEn": "Quantum Computing",
+      "headline": "\"美정부, IBM 등 양자컴퓨팅 기업에 3조···",
+      "stocks": [
+        { "shcode": "036930", "name": "한국첨단소재" },
+        { "shcode": "099410", "name": "엑스게이트" },
+        { "shcode": "045970", "name": "케이씨에스" },
+        { "shcode": "050890", "name": "쏠리드" }
+      ]
+    },
+    {
+      "id": "mlcc",
+      "nameKo": "MLCC",
+      "nameEn": "MLCC",
+      "headline": "삼성전기, AI 부품 기대감에 신고가···종···",
+      "stocks": [
+        { "shcode": "001820", "name": "삼화콘덴서" },
+        { "shcode": "049950", "name": "대주전자재료" },
+        { "shcode": "009470", "name": "삼화전기" },
+        { "shcode": "009150", "name": "삼성전기" }
+      ]
+    },
+    {
+      "id": "semi-parts",
+      "nameKo": "반도체소부장",
+      "nameEn": "Semiconductor Materials",
+      "headline": "美 반도체주 혼조···엔비디아 1.8% 하락···",
+      "stocks": [
+        { "shcode": "036930", "name": "주성엔지니어링" },
+        { "shcode": "036540", "name": "SFA반도체" },
+        { "shcode": "192650", "name": "파두" },
+        { "shcode": "240810", "name": "제주반도체" }
+      ]
+    },
+    {
+      "id": "bio",
+      "nameKo": "바이오",
+      "nameEn": "Bio",
+      "headline": "22일 첫선 '국민성장펀드'가 향할 코스닥···",
+      "stocks": [
+        { "shcode": "048410", "name": "현대바이오" },
+        { "shcode": "083790", "name": "리가켐바이오" },
+        { "shcode": "204620", "name": "한올바이오파마" },
+        { "shcode": "196170", "name": "알테오젠" }
+      ]
+    },
+    {
+      "id": "battery",
+      "nameKo": "2차전지",
+      "nameEn": "Secondary Battery",
+      "headline": "\"올해 2차전지 ESS 모멘텀 본격화\"···니···",
+      "stocks": [
+        { "shcode": "049950", "name": "대주전자재료" },
+        { "shcode": "086520", "name": "에코프로" },
+        { "shcode": "247540", "name": "에코프로비엠" },
+        { "shcode": "006400", "name": "삼성SDI" }
+      ]
+    },
+    {
+      "id": "semi-large",
+      "nameKo": "반도체대형주",
+      "nameEn": "Semiconductor Large-Cap",
+      "headline": "美 반도체주 혼조···엔비디아 1.8% 하락···",
+      "stocks": [
+        { "shcode": "009150", "name": "삼성전기" },
+        { "shcode": "012330", "name": "LG이노텍" },
+        { "shcode": "000660", "name": "SK하이닉스" },
+        { "shcode": "005930", "name": "삼성전자" }
+      ]
+    },
+    {
+      "id": "robot",
+      "nameKo": "로봇",
+      "nameEn": "Robotics",
+      "headline": "'인력난의 끝' 휴머노이드 로봇··· 2050···",
+      "stocks": [
+        { "shcode": "108320", "name": "LG씨엔에스" },
+        { "shcode": "066570", "name": "LG전자" },
+        { "shcode": "267250", "name": "현대차" },
+        { "shcode": "012330", "name": "현대모비스" }
+      ]
+    },
+    {
+      "id": "individual",
+      "nameKo": "개별이슈",
+      "nameEn": "Individual Issues",
+      "headline": "개별이슈로 등락중 각 종목간 연관성은···",
+      "stocks": [
+        { "shcode": "014620", "name": "빛과전자" },
+        { "shcode": "034020", "name": "두산퓨얼셀" },
+        { "shcode": "010060", "name": "OCI홀딩스" },
+        { "shcode": "017960", "name": "켄코아에어로스페이스" }
+      ]
+    }
+  ]
+}
