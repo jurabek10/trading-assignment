@@ -33,17 +33,26 @@ pnpm --filter @tma/web dev
 pnpm -r typecheck
 ```
 
-## Quote source
-The server runs a **mock feed** by default — it primes plausible KRW prices and emits tick deltas every ~700 ms so the UI shows live behaviour without LS credentials.
+## Sectors (per assignment spec)
+6 sectors, configured in [config/sectors.json](config/sectors.json): 반도체 · 조선 · 방산 · 바이오 · 전력기기 · 금융.
 
-To switch to the real LS Securities feed, drop in an `LsFeed` implementation that emits `Quote` objects into the `Store` (same shape as `MockFeed`), wire it up in `apps/server/src/index.ts`, and set:
+## Quote source
+Two interchangeable feeds emit `Quote` objects into the `Store`; everything downstream (REST, WS, ranking) is identical either way.
+
+- **LS Securities live feed** (`apps/server/src/feed/ls.ts`) — used when `USE_LS=1`.
+  - OAuth2 client-credentials token
+  - `t8436` to classify each ticker as KOSPI/KOSDAQ
+  - `t1102` for the initial REST snapshot per ticker
+  - WebSocket `S3_`/`K3_` (주식체결) for real-time ticks, with token refresh + auto-reconnect
+- **Mock feed** (`apps/server/src/feed/mock.ts`) — default fallback so the UI runs without credentials, and the automatic fallback if LS startup fails.
+
+To run against the live LS API, copy [apps/server/.env.example](apps/server/.env.example) to `apps/server/.env` and fill in:
 ```
+USE_LS=1
 LS_APP_KEY=…
 LS_APP_SECRET=…
-LS_BASE_URL=…
-LS_WS_URL=…
-USE_LS=1
 ```
+`/api/health` reports `lsConnected: true` once the live feed is connected. Issue credentials at https://openapi.ls-sec.co.kr.
 
 ## REST + WS contract
 | Endpoint | Purpose |

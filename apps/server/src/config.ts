@@ -43,4 +43,11 @@ export const env = {
   port: Number(process.env.PORT ?? 8080),
   allowedOrigin: process.env.ALLOWED_ORIGIN ?? "*",
   useLs: process.env.USE_LS === "1",
+  ls: {
+    appKey: process.env.LS_APP_KEY ?? "",
+    appSecret: process.env.LS_APP_SECRET ?? "",
+    // LS Securities (LS증권) Open API endpoints. Override only if LS changes them.
+    restBase: process.env.LS_REST_BASE ?? "https://openapi.ls-sec.co.kr:8080",
+    wsBase: process.env.LS_WS_BASE ?? "wss://openapi.ls-sec.co.kr:9443/websocket",
+  },
 };

@@ -56,10 +56,13 @@ export class Store extends EventEmitter {
   }
 
   getSectors(): Sector[] {
-    return this.sectorsMeta.map((s) => ({
-      ...s,
-      score: this.scores.get(s.id) ?? 0,
-    }));
+    // Sector score = mean of the top-3 change-rates; sectors are returned in
+    // descending score order (spec §2.3), ties broken by id for stability.
+    return this.sectorsMeta
+      .map((s) => ({ ...s, score: this.scores.get(s.id) ?? 0 }))
+      .sort((a, b) =>
+        b.score !== a.score ? b.score - a.score : a.id.localeCompare(b.id),
+      );
   }
 
   private scheduleRecompute(sectorId: string): void {

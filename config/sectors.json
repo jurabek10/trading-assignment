@@ -1,99 +1,81 @@
 {
   "sectors": [
     {
-      "id": "quantum",
-      "nameKo": "양자컴퓨터",
-      "nameEn": "Quantum Computing",
-      "headline": "\"美정부, IBM 등 양자컴퓨팅 기업에 3조···",
+      "id": "semiconductor",
+      "nameKo": "반도체",
+      "nameEn": "Semiconductor",
+      "headline": "AI 메모리 수요 지속···HBM·파운드리 모멘텀 부각···",
       "stocks": [
-        { "shcode": "036930", "name": "한국첨단소재" },
-        { "shcode": "099410", "name": "엑스게이트" },
-        { "shcode": "045970", "name": "케이씨에스" },
-        { "shcode": "050890", "name": "쏠리드" }
+        { "shcode": "005930", "name": "삼성전자" },
+        { "shcode": "000660", "name": "SK하이닉스" },
+        { "shcode": "042700", "name": "한미반도체" },
+        { "shcode": "000990", "name": "DB하이텍" },
+        { "shcode": "058470", "name": "리노공업" }
       ]
     },
     {
-      "id": "mlcc",
-      "nameKo": "MLCC",
-      "nameEn": "MLCC",
-      "headline": "삼성전기, AI 부품 기대감에 신고가···종···",
+      "id": "shipbuilding",
+      "nameKo": "조선",
+      "nameEn": "Shipbuilding",
+      "headline": "친환경 선박·LNG선 수주 호조···슈퍼사이클 기대감···",
       "stocks": [
-        { "shcode": "001820", "name": "삼화콘덴서" },
-        { "shcode": "049950", "name": "대주전자재료" },
-        { "shcode": "009470", "name": "삼화전기" },
-        { "shcode": "009150", "name": "삼성전기" }
+        { "shcode": "329180", "name": "HD현대중공업" },
+        { "shcode": "009540", "name": "HD한국조선해양" },
+        { "shcode": "010140", "name": "삼성중공업" },
+        { "shcode": "042660", "name": "한화오션" },
+        { "shcode": "010620", "name": "HD현대미포" }
       ]
     },
     {
-      "id": "semi-parts",
-      "nameKo": "반도체소부장",
-      "nameEn": "Semiconductor Materials",
-      "headline": "美 반도체주 혼조···엔비디아 1.8% 하락···",
+      "id": "defense",
+      "nameKo": "방산",
+      "nameEn": "Defense",
+      "headline": "K-방산 수출 확대···지정학 리스크에 수주 증가···",
       "stocks": [
-        { "shcode": "036930", "name": "주성엔지니어링" },
-        { "shcode": "036540", "name": "SFA반도체" },
-        { "shcode": "192650", "name": "파두" },
-        { "shcode": "240810", "name": "제주반도체" }
+        { "shcode": "012450", "name": "한화에어로스페이스" },
+        { "shcode": "047810", "name": "한국항공우주" },
+        { "shcode": "079550", "name": "LIG넥스원" },
+        { "shcode": "064350", "name": "현대로템" },
+        { "shcode": "272210", "name": "한화시스템" }
       ]
     },
     {
       "id": "bio",
       "nameKo": "바이오",
       "nameEn": "Bio",
-      "headline": "22일 첫선 '국민성장펀드'가 향할 코스닥···",
+      "headline": "바이오시밀러·신약 기대감···국민성장펀드 자금 유입···",
       "stocks": [
-        { "shcode": "048410", "name": "현대바이오" },
-        { "shcode": "083790", "name": "리가켐바이오" },
-        { "shcode": "204620", "name": "한올바이오파마" },
-        { "shcode": "196170", "name": "알테오젠" }
+        { "shcode": "207940", "name": "삼성바이오로직스" },
+        { "shcode": "068270", "name": "셀트리온" },
+        { "shcode": "196170", "name": "알테오젠" },
+        { "shcode": "000100", "name": "유한양행" },
+        { "shcode": "326030", "name": "SK바이오팜" }
       ]
     },
     {
-      "id": "battery",
-      "nameKo": "2차전지",
-      "nameEn": "Secondary Battery",
-      "headline": "\"올해 2차전지 ESS 모멘텀 본격화\"···니···",
+      "id": "power-equipment",
+      "nameKo": "전력기기",
+      "nameEn": "Power Equipment",
+      "headline": "AI 데이터센터·전력망 투자···변압기 슈퍼사이클 지속···",
       "stocks": [
-        { "shcode": "049950", "name": "대주전자재료" },
-        { "shcode": "086520", "name": "에코프로" },
-        { "shcode": "247540", "name": "에코프로비엠" },
-        { "shcode": "006400", "name": "삼성SDI" }
+        { "shcode": "267260", "name": "HD현대일렉트릭" },
+        { "shcode": "010120", "name": "LS ELECTRIC" },
+        { "shcode": "298040", "name": "효성중공업" },
+        { "shcode": "001440", "name": "대한전선" },
+        { "shcode": "033100", "name": "제룡전기" }
       ]
     },
     {
-      "id": "semi-large",
-      "nameKo": "반도체대형주",
-      "nameEn": "Semiconductor Large-Cap",
-      "headline": "美 반도체주 혼조···엔비디아 1.8% 하락···",
+      "id": "finance",
+      "nameKo": "금융",
+      "nameEn": "Finance",
+      "headline": "밸류업 프로그램 기대감···주주환원 확대에 금융주 강세···",
       "stocks": [
-        { "shcode": "009150", "name": "삼성전기" },
-        { "shcode": "012330", "name": "LG이노텍" },
-        { "shcode": "000660", "name": "SK하이닉스" },
-        { "shcode": "005930", "name": "삼성전자" }
-      ]
-    },
-    {
-      "id": "robot",
-      "nameKo": "로봇",
-      "nameEn": "Robotics",
-      "headline": "'인력난의 끝' 휴머노이드 로봇··· 2050···",
-      "stocks": [
-        { "shcode": "108320", "name": "LG씨엔에스" },
-        { "shcode": "066570", "name": "LG전자" },
-        { "shcode": "267250", "name": "현대차" },
-        { "shcode": "012330", "name": "현대모비스" }
-      ]
-    },
-    {
-      "id": "individual",
-      "nameKo": "개별이슈",
-      "nameEn": "Individual Issues",
-      "headline": "개별이슈로 등락중 각 종목간 연관성은···",
-      "stocks": [
-        { "shcode": "014620", "name": "빛과전자" },
-        { "shcode": "034020", "name": "두산퓨얼셀" },
-        { "shcode": "010060", "name": "OCI홀딩스" },
-        { "shcode": "017960", "name": "켄코아에어로스페이스" }
+        { "shcode": "105560", "name": "KB금융" },
+        { "shcode": "055550", "name": "신한지주" },
+        { "shcode": "086790", "name": "하나금융지주" },
+        { "shcode": "138040", "name": "메리츠금융지주" },
+        { "shcode": "032830", "name": "삼성생명" }
       ]
     }
   ]
