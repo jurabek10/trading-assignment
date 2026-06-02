@@ -33,6 +33,22 @@ pnpm --filter @tma/web dev
 pnpm -r typecheck
 ```
 
+## Deploy
+The production server serves both the REST/WebSocket backend and the built React app from one process.
+
+```bash
+pnpm install --frozen-lockfile
+pnpm build
+PORT=8080 pnpm start
+```
+
+A Dockerfile is included for single-service deployment on Render/Railway/Fly/etc. The deployed URL can be tested with:
+
+```bash
+curl https://YOUR_URL/api/health
+curl https://YOUR_URL/api/snapshot
+```
+
 ## Sectors (per assignment spec)
 6 sectors, configured in [config/sectors.json](config/sectors.json): 반도체 · 조선 · 방산 · 바이오 · 전력기기 · 금융.
 
@@ -45,6 +61,8 @@ Two interchangeable feeds emit `Quote` objects into the `Store`; everything down
   - `t1102` for the initial REST snapshot per ticker
   - WebSocket `S3_`/`K3_` (주식체결) for real-time ticks, with token refresh + auto-reconnect
 - **Mock feed** (`apps/server/src/feed/mock.ts`) — default fallback so the UI runs without credentials, and the automatic fallback if LS startup fails.
+
+For this assignment submission, LS증권 credentials were not available from the company. The application therefore keeps the LS adapter implemented and deploys with the mock feed by default; if valid `LS_APP_KEY` / `LS_APP_SECRET` are provided, the same REST/WebSocket/sorting pipeline runs with LS live quotes by setting `USE_LS=1`.
 
 To run against the live LS API, copy [apps/server/.env.example](apps/server/.env.example) to `apps/server/.env` and fill in:
 ```

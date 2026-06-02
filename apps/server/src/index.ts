@@ -1,4 +1,7 @@
 import http from "node:http";
+import { existsSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import express from "express";
 import cors from "cors";
 import pino from "pino";
@@ -9,6 +12,9 @@ import { LsFeed } from "./feed/ls.js";
 import { attachWsHub } from "./ws-hub.js";
 
 type Feed = { start: () => void | Promise<void>; stop: () => void };
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const webDistPath = resolve(__dirname, "../../web/dist");
 
 const log = pino({
   transport: { target: "pino-pretty", options: { colorize: true } },
@@ -43,6 +49,13 @@ async function main() {
   app.get("/api/snapshot", (_req, res) => {
     res.json(hub.snapshot());
   });
+
+  if (existsSync(webDistPath)) {
+    app.use(express.static(webDistPath));
+    app.get("*", (_req, res) => {
+      res.sendFile(resolve(webDistPath, "index.html"));
+    });
+  }
 
   let feed: Feed;
   if (env.useLs) {
