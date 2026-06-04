@@ -49,7 +49,9 @@ apps/server/src/feed/ls.ts
 apps/server/src/feed/mock.ts
 ```
 
-LS증권 API 사용 시에는 아래 환경변수를 설정합니다.
+현재 배포본에서 사용하는 데이터 소스는 `MockFeed`입니다. 별도 외부 시세 API Key 없이도 REST API, WebSocket 실시간 갱신, 정렬 로직을 확인할 수 있도록 자체 Mock 실시간 Feed를 사용했습니다.
+
+LS증권 API 연동 모듈도 함께 구현되어 있으며, 실제 LS증권 API 사용 시에는 아래 환경변수를 설정합니다.
 
 ```bash
 USE_LS=1
@@ -57,7 +59,7 @@ LS_APP_KEY=...
 LS_APP_SECRET=...
 ```
 
-현재 배포 환경은 별도 API Key 없이 확인할 수 있도록 Mock 실시간 Feed로 실행 중입니다. Mock Feed도 WebSocket으로 계속 시세를 갱신하며, REST API와 정렬 로직은 동일하게 동작합니다.
+환경변수가 설정되면 백엔드는 `MockFeed` 대신 `LsFeed`를 사용합니다. 두 Feed는 같은 데이터 구조를 사용하므로 REST API, WebSocket, 정렬 로직은 동일하게 동작합니다.
 
 ## API
 
