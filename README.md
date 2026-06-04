@@ -1,93 +1,91 @@
-# TMA — 마켓중심 Clone
+# 티마 마켓중심 카피 페이지
 
-Real-time stock-sector dashboard that mirrors the LS Securities TMA "Market Center" view. See [SYSTEM_DESIGN.md](SYSTEM_DESIGN.md) for the full design spec.
+더트레이딩 면접 과제로 만든 실시간 섹터별 종목 대시보드입니다.
 
-## Stack
-- **Backend**: Node 20, Express, `ws`, TypeScript (pino logging)
-- **Frontend**: React 18, Vite, Zustand, Tailwind CSS, TypeScript
-- **Shared**: TypeScript types in `packages/shared`
-- **Monorepo**: pnpm workspaces
+배포 주소: https://trading-assignment.onrender.com
 
-## Layout
+## 주요 기능
+
+- 총 6개 섹터 표시
+  - 반도체
+  - 조선
+  - 방산
+  - 바이오
+  - 전력기기
+  - 금융
+- React 프론트엔드
+- NodeJS 백엔드
+- REST API로 초기 데이터와 기타 데이터 제공
+- WebSocket으로 실시간 시세 데이터 반영
+- 티마 마켓중심 화면을 참고한 카드형 UI
+
+## 정렬 방식
+
+요구사항에 맞게 아래 방식으로 정렬합니다.
+
+1. 각 섹터에서 상승률이 높은 종목 3개의 상승률 평균값을 계산합니다.
+2. 이 평균값이 높은 순서대로 섹터를 정렬합니다.
+3. 각 섹터 안의 종목은 상승률이 높은 순서대로 정렬합니다.
+
+정렬 로직은 백엔드에서 계산하고, 프론트엔드에서도 수신한 데이터 기준으로 다시 정렬합니다.
+
+## 시세 데이터
+
+LS증권 API 연동 코드는 구현되어 있습니다.
+
+- 파일: `apps/server/src/feed/ls.ts`
+- `USE_LS=1`
+- `LS_APP_KEY`
+- `LS_APP_SECRET`
+
+위 환경변수를 설정하면 LS증권 API 사용 모드로 실행됩니다.
+
+다만 과제 진행 중 회사로부터 과제용 LS증권 API Key를 제공받지 못했기 때문에, 현재 배포본은 Mock 실시간 시세 데이터를 사용합니다. Mock 데이터도 WebSocket으로 계속 갱신되며, REST API와 정렬 로직은 LS API 사용 시와 같은 구조로 동작합니다.
+
+## API
+
+```text
+GET /api/health
+GET /api/snapshot
+GET /api/sectors
+WS  /ws
 ```
-apps/
-  server/        Express + WebSocket hub + mock quote feed + aggregator
-  web/           React UI
-packages/
-  shared/        Quote / Sector / WSMessage types
-config/
-  sectors.json   Theme + constituent tickers (hot-reloadable)
-```
 
-## Run locally
+## 실행 방법
+
 ```bash
 pnpm install
-pnpm dev            # runs both server (:8080) and web (:5173) in parallel
-```
-Then open http://localhost:5173. Vite proxies `/api` and `/ws` to the server.
-
-Independent commands:
-```bash
-pnpm --filter @tma/server dev
-pnpm --filter @tma/web dev
-pnpm -r typecheck
+pnpm dev
 ```
 
-## Deploy
-The production server serves both the REST/WebSocket backend and the built React app from one process.
+프론트엔드: http://localhost:5173  
+백엔드: http://localhost:8080
+
+## 빌드 및 실행
 
 ```bash
-pnpm install --frozen-lockfile
 pnpm build
 PORT=8080 pnpm start
 ```
 
-A Dockerfile is included for single-service deployment on Render/Railway/Fly/etc. The deployed URL can be tested with:
+## 배포
+
+Render에 Docker 기반으로 배포했습니다.
+
+배포 설정 파일:
+
+```text
+Dockerfile
+render.yaml
+```
+
+## 확인 방법
 
 ```bash
-curl https://YOUR_URL/api/health
-curl https://YOUR_URL/api/snapshot
+curl https://trading-assignment.onrender.com/api/health
+curl https://trading-assignment.onrender.com/api/snapshot
 ```
 
-## Sectors (per assignment spec)
-6 sectors, configured in [config/sectors.json](config/sectors.json): 반도체 · 조선 · 방산 · 바이오 · 전력기기 · 금융.
+`/api/health`에서 `ok: true`가 나오면 서버가 정상 동작 중입니다.
 
-## Quote source
-Two interchangeable feeds emit `Quote` objects into the `Store`; everything downstream (REST, WS, ranking) is identical either way.
-
-- **LS Securities live feed** (`apps/server/src/feed/ls.ts`) — used when `USE_LS=1`.
-  - OAuth2 client-credentials token
-  - `t8436` to classify each ticker as KOSPI/KOSDAQ
-  - `t1102` for the initial REST snapshot per ticker
-  - WebSocket `S3_`/`K3_` (주식체결) for real-time ticks, with token refresh + auto-reconnect
-- **Mock feed** (`apps/server/src/feed/mock.ts`) — default fallback so the UI runs without credentials, and the automatic fallback if LS startup fails.
-
-For this assignment submission, LS증권 credentials were not available from the company. The application therefore keeps the LS adapter implemented and deploys with the mock feed by default; if valid `LS_APP_KEY` / `LS_APP_SECRET` are provided, the same REST/WebSocket/sorting pipeline runs with LS live quotes by setting `USE_LS=1`.
-
-To run against the live LS API, copy [apps/server/.env.example](apps/server/.env.example) to `apps/server/.env` and fill in:
-```
-USE_LS=1
-LS_APP_KEY=…
-LS_APP_SECRET=…
-```
-`/api/health` reports `lsConnected: true` once the live feed is connected. Issue credentials at https://openapi.ls-sec.co.kr.
-
-## REST + WS contract
-| Endpoint | Purpose |
-|----------|---------|
-| `GET /api/health` | `{ ok, lsConnected, clients, ts }` |
-| `GET /api/snapshot` | Full `{ sectors, quotes, marketIndex, serverTs }` |
-| `GET /api/sectors` | Sector metadata + current scores |
-| `WS  /ws` | Snapshot on connect, then `quote` / `sectorScores` / `marketIndex` / `heartbeat` frames |
-
-## Sorting (per spec §2.3)
-- Stocks within a sector: by `changeRate` desc, ties broken by `shcode` asc.
-- Sector score: arithmetic mean of the top-3 stocks' change-rates.
-- Sector order in the grid: by sector score desc.
-- Recompute is debounced server-side at 100 ms per sector. The client also re-sorts on every state change so multiple browsers render identically from the same delta stream.
-
-## UI notes
-- 4×2 sector grid (matches the photo). Each card: teal banner with sector name + score, news headline snippet, 4 ranked stock rows.
-- Stock row: name + signed % (red ▲ for positive, blue ▼ for negative — KR convention), price + last-trade time, intraday price bar from low → high with current price marker, trading value in 억 KRW.
-- The single highest-rise stock per sector is highlighted with the yellow `#FFEB8A` background to match the reference UI.
-- Updated rows flash briefly (300 ms) on price change.
+현재 배포본은 Mock 데이터 모드이므로 `lsConnected` 값은 `false`입니다.
